@@ -5,14 +5,22 @@ using UnityEngine;
 
 public class ObjectList : MonoBehaviour
 {
+    public static ObjectList instance;
 
-    List<Object> list = new List<Object>();
+    List<ObjectHandle> list = new List<ObjectHandle>();
     public int maxCount;
     RectTransform parentRect;
     public Vector2 offset;
 
     // 테스트용
-    public GameObject abc;
+    public ObjectHandle prefab_handle;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else Destroy(this);
+    }
 
     private void Start()
     {
@@ -23,19 +31,19 @@ public class ObjectList : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.A) && list.Count < maxCount)
         {
-            GameObject test = Instantiate(abc,this.transform);
+            ObjectHandle test = Instantiate(prefab_handle, this.transform);
             AddList(test);
         }
 
-        if(Input.GetMouseButtonUp(0))
+        /*if(Input.GetMouseButtonUp(0))
         {
             if(InputController.instance.isPlaceable)
             {
                 Debug.Log("TEST");
             }
-        }
+        }*/
     }
-    public void AddList(Object obj)
+    public void AddList(ObjectHandle obj)
     {
         // 리스트의 UI 좌표계
         RectTransform parentRect = this.gameObject.GetComponent<RectTransform>();
@@ -44,8 +52,8 @@ public class ObjectList : MonoBehaviour
         try
         {
             // 등장한 아이템의 UI 좌표계
-            GameObject item = (GameObject)obj;
-            itemRect = item.GetComponent<RectTransform>();
+            //GameObject item = (GameObject)obj.unit;
+            itemRect = obj.GetComponent<RectTransform>();
         }
         catch
         {
@@ -62,5 +70,10 @@ public class ObjectList : MonoBehaviour
         itemRect.DOAnchorPosX(targetPos.x, 1f);
 
         list.Add(obj);
+    }
+
+    public void RemoveList(ObjectHandle obj)
+    {
+        list.Remove(obj);
     }
 }

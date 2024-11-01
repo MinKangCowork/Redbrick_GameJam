@@ -7,6 +7,7 @@ public class InputController : MonoBehaviour
     public static InputController instance;
 
     public bool isPlaceable;
+    public RaycastHit hit;
 
     private void Awake()
     {
@@ -22,10 +23,14 @@ public class InputController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+
+        }
+
         if (Input.GetMouseButton(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 마우스 위치에서 레이 생성
-            RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
