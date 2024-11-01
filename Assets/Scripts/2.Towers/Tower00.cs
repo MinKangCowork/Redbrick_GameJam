@@ -14,10 +14,10 @@ public class Tower00 : BaseTower, IFireBullet
     public Transform FireTransform { get; set; }
 
     private void Start()
-    {
+    {        
         FireTransform = transform.GetChild(0);
-        Fire();
     }
+    
     public virtual void Fire()
     {
         StartCoroutine(AttackRoutine());

@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class BaseTower : MonoBehaviour, IUnitInfo
-{
+{  
     [field: SerializeField]
     public int Id { get; set; }
 

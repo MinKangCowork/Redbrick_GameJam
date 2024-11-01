@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using static UnityEngine.UI.CanvasScaler;
-using static PoolManager;
 
 public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
@@ -59,6 +58,9 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         {
             ObjectList.instance.RemoveList(this);
             icon.color = new Color(1, 1, 1, 0);
+
+
+            ActiveUnit();
             //unit.
         }
         else isDragging = false;
@@ -67,5 +69,6 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public void ActiveUnit()
     {
         // 유닛 배치했을 때 실행
+        unit.GetComponent<IFireBullet>().Fire();
     }
 }
