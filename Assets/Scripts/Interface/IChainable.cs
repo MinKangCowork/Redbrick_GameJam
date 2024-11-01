@@ -13,6 +13,7 @@ public interface IChainable
     }
     public ESynergy SynergyType { get; set; }
     public List<IChainable> NearSynergy {  get; set; }
-    public void Chain(int count);
-    public void Synergy();
+    public void SynergyUpdate(int count);
+    public void ChainEnterCheck(IChainable oChain);
+    public void ChainExitCheck(IChainable oChain);
 }
