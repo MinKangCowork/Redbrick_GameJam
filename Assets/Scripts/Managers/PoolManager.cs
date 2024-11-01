@@ -25,7 +25,6 @@ public class PoolManager : MonoBehaviour
             towerPools[index] = new List<GameObject>();
         }
 
-
         // WeaponPool √ ±‚»≠
         bulletPools = new List<GameObject>[bulletPrefabs.Length];
         for (int index = 0; index < bulletPools.Length; index++)

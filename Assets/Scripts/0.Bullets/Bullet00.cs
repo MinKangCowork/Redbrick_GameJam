@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Bullet00 : BaseBullet
 {
-    public override void Init(Transform parent)
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         // 충돌한 객체가 BaseEnemy 스크립트를 가진지 확인

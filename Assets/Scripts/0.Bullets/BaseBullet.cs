@@ -12,11 +12,17 @@ public abstract class BaseBullet : MonoBehaviour, IMovable, IAttackable, IUnitIn
     public int Id { get; set; }
 
     public int per;
-        
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     protected virtual void FixedUpdate()
     {
         Move();
     }
+
     public virtual void Attack(IDamageable target)
     {
         target.Damaged(Damage);
@@ -24,8 +30,14 @@ public abstract class BaseBullet : MonoBehaviour, IMovable, IAttackable, IUnitIn
 
     public virtual void Move()
     {
-        transform.Translate(Vector3.right * Speed * Time.fixedDeltaTime); 
+        rb.velocity = Vector2.right * Speed;
     }
 
-    public abstract void Init(Transform parent);
+    public virtual void Init(float damage, float speed, Transform parent)
+    {
+        this.Damage = damage;
+        this.Speed = speed;
+        transform.parent = parent;
+        transform.position = parent.position;
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemy : MonoBehaviour, IAttackable, IDamageable, IMovable, IUnitInfo
+public class BaseEnemy : MonoBehaviour, IDamageable, IMovable, IUnitInfo
 {
     [field: SerializeField]
     public int Id { get; set; }
@@ -22,12 +22,7 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IDamageable, IMovable, IUni
     void FixedUpdate()
     {
         Move();
-    }
-
-    public void Attack(IDamageable target)
-    {
-        target.Damaged(Damage);
-    }
+    }   
 
     public void Damaged(float damage)
     {

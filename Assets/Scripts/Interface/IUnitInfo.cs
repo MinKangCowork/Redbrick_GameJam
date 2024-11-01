@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IUnitInfo 
 {
-    public int Id { get; set; }    
+    public int Id { get; set; }
+    
 }
 
