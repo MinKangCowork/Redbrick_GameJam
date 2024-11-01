@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using static UnityEngine.UI.CanvasScaler;
+using static PoolManager;
 
 public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
@@ -16,7 +17,7 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     public void Init()
     {
-        unit = Instantiate(templet[0]);
+        unit = GameManager.Instance.pool.Get(PoolManager.PoolType.Tower, 0);
     }
 
     void Start()

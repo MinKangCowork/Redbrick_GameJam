@@ -91,4 +91,4 @@ MonoBehaviour:
   unit: {fileID: 0}
   isDragging: 0
   templet:
-  - {fileID: 597439046227217409, guid: 3af9d1694b96a3344ba479762a002fef, type: 3}
+  - {fileID: 200221708057785003, guid: 5a6b62fed4c9a804f85a8375014daa85, type: 3}
