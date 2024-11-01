@@ -37,7 +37,6 @@ public abstract class BaseBullet : MonoBehaviour, IMovable, IAttackable, IUnitIn
     {
         this.Damage = damage;
         this.Speed = speed;
-        transform.parent = parent;
         transform.position = parent.position;
     }
 }
