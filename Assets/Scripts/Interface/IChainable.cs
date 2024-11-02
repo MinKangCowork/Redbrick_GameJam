@@ -12,7 +12,10 @@ public interface IChainable
         Malloc
     }
     public ESynergy SynergyType { get; set; }
-    public List<IChainable> NearSynergy {  get; set; }
+    public List<IChainable> NearSynergy {  get; set; }  
+    public int SynergyCurrent { get; set; }
+
+    public void UpdateSynergyForGroup();
     public void SynergyUpdate(int count);
     public void ChainEnterCheck(IChainable oChain);
     public void ChainExitCheck(IChainable oChain);

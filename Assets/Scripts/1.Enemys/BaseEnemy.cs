@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemy : MonoBehaviour, IDamageable, IMovable, IUnitInfo
+public class BaseEnemy : ChainableBase, IDamageable, IMovable, IUnitInfo, IAttackable
 {
+    public LayerMask deadLayerMask;
     [field: SerializeField]
     public int Id { get; set; }
 
@@ -19,22 +20,94 @@ public class BaseEnemy : MonoBehaviour, IDamageable, IMovable, IUnitInfo
     [field: SerializeField]
     public float Damage { get; set; }
 
-    void FixedUpdate()
+    [field: SerializeField]
+    public bool IsDetection { get; set; }
+
+    public bool isLive;
+
+    // 컴포넌트
+    private Animator animator;
+    private Rigidbody rb;
+    private Collider coll;
+    protected override void Awake()
     {
+        base.Awake();
+        animator = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody>();
+        coll = GetComponent<Collider>();
+
+        NearSynergy = new List<IChainable> { this }; // 자기 자신을 초기 리스트에 추가
+    }
+    protected virtual void FixedUpdate()
+    {
+        if (!isLive || !GameManager.Instance.isGameLive || IsDetection)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+                
         Move();
     }   
-
+    
+    protected virtual void Update()
+    {
+        Animation();
+        if (Input.GetKeyDown(KeyCode.Space))
+            Damaged(CurrentHp);
+    }
     public void Damaged(float damage)
     {
         CurrentHp -= damage;
         if (CurrentHp <= 0)
         {
-            gameObject.SetActive(false);
+            isLive = false;
+            animator.SetTrigger("doDead");
+            StartCoroutine(Dead());
         }
     }
 
     public void Move()
     {
-        transform.Translate(Vector2.left * Speed * Time.fixedDeltaTime);
+        rb.velocity = Vector2.left * Speed;        
+    }
+    public void Attack(IDamageable target)
+    {
+        target.Damaged(Damage);
+    }
+    
+    public void Animation()
+    {
+        animator.SetBool("isWalk", rb.velocity.x >= 0);
+        animator.SetBool("isAttack", IsDetection);
+    }
+
+    public override void SynergyUpdate(int count)
+    {
+        SynergyCurrent = count;
+        if (count == 0)
+        {
+            Debug.Log("0인 왕따");
+            return;
+        }
+        else if (count >= 4)
+        {
+            Debug.Log("4인 시너지 이상!!!");
+        }
+        else if (count >= 3)
+        {
+            Debug.Log("3인 시너지 발생");
+        }
+        else if (count >= 2)
+        {
+            Debug.Log("2인 시너지 발생");
+        }
+    }
+
+    public IEnumerator Dead()
+    {
+
+        gameObject.layer = Mathf.RoundToInt(Mathf.Log(deadLayerMask.value, 2));
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }

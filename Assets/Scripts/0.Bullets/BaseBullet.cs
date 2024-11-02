@@ -9,7 +9,9 @@ public abstract class BaseBullet : MonoBehaviour, IMovable, IAttackable, IUnitIn
 
     [field: SerializeField]
     public float Damage { get; set; }
+    [field: SerializeField]
     public int Id { get; set; }
+    public bool IsDetection { get; set; }
 
     public int per;
     private Rigidbody rb;

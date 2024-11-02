@@ -18,7 +18,7 @@ public class Tower00 : BaseTower, IFireBullet
         FireTransform = transform.GetChild(0);
     }
     
-    public virtual void Fire()
+    public virtual void FireStart()
     {
         StartCoroutine(AttackRoutine());
     }

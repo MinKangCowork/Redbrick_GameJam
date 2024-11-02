@@ -69,6 +69,6 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public void ActiveUnit()
     {
         // 유닛 배치했을 때 실행
-        unit.GetComponent<IFireBullet>().Fire();
+        unit.GetComponent<IFireBullet>().FireStart();
     }
 }

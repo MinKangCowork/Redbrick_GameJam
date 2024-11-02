@@ -8,7 +8,7 @@ public interface IFireBullet
     public float BulletSpeed { get; set; }
     public Transform FireTransform { get; set; }
 
-    public void Fire();
+    public void FireStart();
 
 }
 
