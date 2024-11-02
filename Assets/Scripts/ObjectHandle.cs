@@ -70,5 +70,9 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     {
         // 유닛 배치했을 때 실행
         unit.GetComponent<IFireBullet>().Fire();
+
+        GameObject unit_g = (GameObject)unit;
+        unit_g.layer = 0;
+        //unit_g.transform.position = InputController.instance.hit.point;
     }
 }
