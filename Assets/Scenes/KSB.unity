@@ -123,6 +123,53 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &292603038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 292603040}
+  - component: {fileID: 292603039}
+  m_Layer: 0
+  m_Name: MapInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &292603039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292603038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 218813cdde3c8314583b971521c1614d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cell_x: 4
+  cell_y: 4
+  Map: {fileID: 1098184329}
+--- !u!4 &292603040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292603038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &449749758
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +563,7 @@ GameObject:
   - component: {fileID: 1098184332}
   - component: {fileID: 1098184331}
   - component: {fileID: 1098184330}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -533,7 +580,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -604,7 +651,7 @@ Transform:
   m_GameObject: {fileID: 1098184329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -923,6 +970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba147331d7b3a64f8f9f3908706df2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  list: []
   maxCount: 7
   offset: {x: 10, y: 0}
   prefab_handle: {fileID: 5228959786456033242, guid: ac9194c25894a384aa85b0ede56bdd93, type: 3}
@@ -1170,3 +1218,4 @@ SceneRoots:
   - {fileID: 1098184333}
   - {fileID: 449749759}
   - {fileID: 1694064759}
+  - {fileID: 292603040}

@@ -7,7 +7,7 @@ public class ObjectList : MonoBehaviour
 {
     public static ObjectList instance;
 
-    List<ObjectHandle> list = new List<ObjectHandle>();
+    public List<ObjectHandle> list = new List<ObjectHandle>();
     public int maxCount;
     RectTransform parentRect;
     public Vector2 offset;
@@ -74,6 +74,16 @@ public class ObjectList : MonoBehaviour
 
     public void RemoveList(ObjectHandle obj)
     {
+        int idx = list.IndexOf(obj);
+        Debug.Log(idx);
+        {
+            for(int i = idx;i<list.Count-1;i++)
+            {
+                Vector2 targetPos = list[i].GetComponent<RectTransform>().anchoredPosition;
+                //if(list.Count == 1) break;
+                list[i+1].GetComponent<RectTransform>().DOAnchorPosX(targetPos.x, 1f);
+            }
+        }
         list.Remove(obj);
     }
 }
