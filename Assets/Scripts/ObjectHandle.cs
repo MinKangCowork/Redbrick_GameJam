@@ -47,8 +47,9 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         if (InputController.instance.isPlaceable)
         {
             GameObject unit_g = (GameObject)unit;
-            unit_g.layer = 2;
-            unit_g.transform.position = InputController.instance.hit.point;
+            //unit_g.layer = 2;
+            MapInfo.instance.FixUnitPos(unit_g);
+            //unit_g.transform.position = InputController.instance.hit.point;
         }
     }
 
@@ -72,7 +73,7 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         unit.GetComponent<IFireBullet>().Fire();
 
         GameObject unit_g = (GameObject)unit;
-        unit_g.layer = 0;
+        //unit_g.layer = 0;
         //unit_g.transform.position = InputController.instance.hit.point;
     }
 }
