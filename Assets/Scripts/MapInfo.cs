@@ -24,8 +24,8 @@ public class MapInfo : MonoBehaviour
             instance = this;
         else Destroy(this);
 
-        mapMatrix = new GameObject[cell_MaxY, cell_MaxX];
-        Map.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(cell_MaxX / 2, cell_MaxY / 2);
+        mapMatrix = new GameObject[cell_MaxX, cell_MaxY];
+        Map.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2((float)cell_MaxX / 2f, (float)cell_MaxY / 2f);
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.positionCount = 5; // 사각형을 그리기 위해 5개 포인트 (마지막이 처음으로 돌아감)
@@ -44,16 +44,19 @@ public class MapInfo : MonoBehaviour
 
     private void DrawGrid()
     {
-        Vector3 cellScale = new Vector3(Map.transform.localScale.x / cell_MaxX * 10f, 0, Map.transform.localScale.y / cell_MaxY * 10f);
+        Vector3 cellScale = new Vector3(Map.transform.localScale.x * 10f / cell_MaxX , 0, Map.transform.localScale.y * 10f / cell_MaxY );
 
         Vector3 top_left = new Vector3((-Map.transform.localScale.x * 10f / 2f) + (cellScale.x / 2f),
             0, (Map.transform.localScale.y * 10f / 2f) - (cellScale.z / 2f));
+        Debug.DrawRay(top_left, Vector3.up);
 
-        cell_idx_x = Mathf.FloorToInt(mousePos.x / 2 / cell_MaxX) + cell_MaxX / 2;
-        cell_idx_y = Mathf.FloorToInt(mousePos.z / 2 / cell_MaxY) - cell_MaxY / 2 + 1; //카메라 깊이
-        
+        cell_idx_x = Mathf.FloorToInt((mousePos.x - top_left.x + cellScale.x / 2) / cellScale.x);
+        cell_idx_y = Mathf.FloorToInt((mousePos.z - top_left.z + cellScale.z / 2) / cellScale.z); //카메라 깊이
+
         Vector3 offset = new Vector3(cell_idx_x * cellScale.x, 0, cell_idx_y * cellScale.z);
         cell_center = top_left + offset;
+        //Debug.Log(offset);
+        Debug.DrawRay(cell_center, Vector3.up);
 
         // 사각형 꼭짓점 설정
         Vector3[] corners = new Vector3[5];
@@ -73,7 +76,8 @@ public class MapInfo : MonoBehaviour
 
     public bool PutUnit(GameObject obj)
     {
-        if(mapMatrix[cell_idx_x, -cell_idx_y] == null)
+        Debug.Log($"{cell_idx_x}, {-cell_idx_y}");
+        if (mapMatrix[cell_idx_x, -cell_idx_y] == null)
         {
             mapMatrix[cell_idx_x, -cell_idx_y] = obj;
             return true;
