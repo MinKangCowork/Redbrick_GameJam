@@ -74,6 +74,14 @@ public class ObjectList : MonoBehaviour
 
     public void RemoveList(ObjectHandle obj)
     {
+        int idx = list.IndexOf(obj);
+        {
+            for(int i = idx;i<list.Count;i++)
+            {
+                Vector2 targetPos = list[i].GetComponent<RectTransform>().anchoredPosition;
+                list[i+1].GetComponent<RectTransform>().DOAnchorPosX(targetPos.x, 1f);
+            }
+        }
         list.Remove(obj);
     }
 }
