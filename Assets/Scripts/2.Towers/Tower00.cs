@@ -16,13 +16,8 @@ public class Tower00 : BaseTower, IFireBullet
     private void Start()
     {        
         FireTransform = transform.GetChild(0);
-    }
-    
-    public virtual void FireStart()
-    {
-        StartCoroutine(AttackRoutine());
-    }
-
+    }  
+ 
     private IEnumerator AttackRoutine()
     {
         while (GameManager.Instance.isGameLive)
@@ -31,5 +26,15 @@ public class Tower00 : BaseTower, IFireBullet
             obj.GetComponent<BaseBullet>().Init(BulletDamage, BulletSpeed, FireTransform);
             yield return new WaitForSeconds(attackDelay);
         }
+    }
+
+    public override void BatchAfterRun()
+    {
+        Collider[] colls = GetComponentsInChildren<Collider>();
+        foreach (var item in colls)
+        {
+            item.enabled = true;
+        }
+        StartCoroutine(AttackRoutine());        
     }
 }

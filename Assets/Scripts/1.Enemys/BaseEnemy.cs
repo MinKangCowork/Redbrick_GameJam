@@ -26,9 +26,9 @@ public class BaseEnemy : ChainableBase, IDamageable, IMovable, IUnitInfo, IAttac
     public bool isLive;
 
     // ÄÄÆ÷³ÍÆ®
-    private Animator animator;
-    private Rigidbody rb;
-    private Collider coll;
+    protected Animator animator;
+    protected Rigidbody rb;
+    protected Collider coll;
     protected override void Awake()
     {
         base.Awake();
@@ -57,6 +57,8 @@ public class BaseEnemy : ChainableBase, IDamageable, IMovable, IUnitInfo, IAttac
     }
     public void Damaged(float damage)
     {
+        if (!isLive)
+            return;
         CurrentHp -= damage;
         if (CurrentHp <= 0)
         {

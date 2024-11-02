@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class BaseTower : ChainableBase, IUnitInfo
+public abstract class BaseTower : ChainableBase, IUnitInfo, IBatchable
 {  
     [field: SerializeField]
     public int Id { get; set; }
@@ -36,5 +36,7 @@ public abstract class BaseTower : ChainableBase, IUnitInfo
         {
             Debug.Log("2인 시너지 발생");
         }
-    }   
+    }
+
+    public abstract void BatchAfterRun();    
 }

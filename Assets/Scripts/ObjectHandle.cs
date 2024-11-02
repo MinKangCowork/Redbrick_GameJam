@@ -27,14 +27,7 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     void Update()
     {
-        /*if (isDragging)
-        {
-            icon.color = new Color(1, 1, 1, 0);
-        }
-        else
-        {
-            icon.color = new Color(1, 1, 1, 1);
-        }*/
+
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -47,14 +40,13 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         if (InputController.instance.isPlaceable)
         {
             GameObject unit_g = (GameObject)unit;
-            unit_g.layer = 2;
-            unit_g.transform.position = InputController.instance.hit.point;
+            MapInfo.instance.FixUnitPos(unit_g);
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(InputController.instance.isPlaceable)
+        if (InputController.instance.isPlaceable)
         {
             ObjectList.instance.RemoveList(this);
             icon.color = new Color(1, 1, 1, 0);
@@ -69,6 +61,9 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public void ActiveUnit()
     {
         // 유닛 배치했을 때 실행
-        unit.GetComponent<IFireBullet>().FireStart();
+        unit.GetComponent<IBatchable>().BatchAfterRun();
+
+        GameObject unit_g = (GameObject)unit;
+        //MapInfo.instance.PutUnit(unit_g);
     }
 }
