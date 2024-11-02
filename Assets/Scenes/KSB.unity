@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218813cdde3c8314583b971521c1614d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell_x: 4
-  cell_y: 4
+  cell_MaxX: 4
+  cell_MaxY: 4
   Map: {fileID: 1098184329}
 --- !u!4 &292603040
 Transform:
@@ -612,7 +612,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 769b83f5653023446bd0bea6e4c31f5b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

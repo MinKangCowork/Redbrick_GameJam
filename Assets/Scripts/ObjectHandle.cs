@@ -27,14 +27,7 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     void Update()
     {
-        /*if (isDragging)
-        {
-            icon.color = new Color(1, 1, 1, 0);
-        }
-        else
-        {
-            icon.color = new Color(1, 1, 1, 1);
-        }*/
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -47,9 +40,7 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         if (InputController.instance.isPlaceable)
         {
             GameObject unit_g = (GameObject)unit;
-            //unit_g.layer = 2;
             MapInfo.instance.FixUnitPos(unit_g);
-            //unit_g.transform.position = InputController.instance.hit.point;
         }
     }
 
@@ -57,12 +48,7 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     {
         if(InputController.instance.isPlaceable)
         {
-            ObjectList.instance.RemoveList(this);
-            icon.color = new Color(1, 1, 1, 0);
-
-
             ActiveUnit();
-            //unit.
         }
         else isDragging = false;
     }
@@ -73,7 +59,11 @@ public class ObjectHandle : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         unit.GetComponent<IFireBullet>().Fire();
 
         GameObject unit_g = (GameObject)unit;
-        //unit_g.layer = 0;
-        //unit_g.transform.position = InputController.instance.hit.point;
+        // 배치하는데 성공 (칸이 비어있었음)
+        if(MapInfo.instance.PutUnit(unit_g))
+        {
+            ObjectList.instance.RemoveList(this);
+            icon.color = new Color(1, 1, 1, 0);
+        }
     }
 }

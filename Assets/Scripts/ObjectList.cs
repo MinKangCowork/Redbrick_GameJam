@@ -75,7 +75,6 @@ public class ObjectList : MonoBehaviour
     public void RemoveList(ObjectHandle obj)
     {
         int idx = list.IndexOf(obj);
-        Debug.Log(idx);
         {
             for(int i = idx;i<list.Count-1;i++)
             {

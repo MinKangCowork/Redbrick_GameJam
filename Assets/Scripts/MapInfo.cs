@@ -6,11 +6,13 @@ public class MapInfo : MonoBehaviour
 {
     public static MapInfo instance;
 
-    public int cell_x;
-    public int cell_y;
+    public int cell_MaxX;
+    public int cell_MaxY;
     public GameObject Map;
     public GameObject[,] mapMatrix;
     Vector3 cell_center;
+    int cell_idx_x;
+    int cell_idx_y;
 
     Vector3 mousePos;
 
@@ -22,7 +24,8 @@ public class MapInfo : MonoBehaviour
             instance = this;
         else Destroy(this);
 
-        mapMatrix = new GameObject[cell_y, cell_x];
+        mapMatrix = new GameObject[cell_MaxY, cell_MaxX];
+        Map.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(cell_MaxX / 2, cell_MaxY / 2);
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.positionCount = 5; // 사각형을 그리기 위해 5개 포인트 (마지막이 처음으로 돌아감)
@@ -41,14 +44,15 @@ public class MapInfo : MonoBehaviour
 
     private void DrawGrid()
     {
-        Vector3 cellScale = new Vector3(Map.transform.localScale.x / cell_x * 10f, 0, Map.transform.localScale.y / cell_y * 10f);
+        Vector3 cellScale = new Vector3(Map.transform.localScale.x / cell_MaxX * 10f, 0, Map.transform.localScale.y / cell_MaxY * 10f);
 
         Vector3 top_left = new Vector3((-Map.transform.localScale.x * 10f / 2f) + (cellScale.x / 2f),
             0, (Map.transform.localScale.y * 10f / 2f) - (cellScale.z / 2f));
 
-        int x = Mathf.FloorToInt(mousePos.x / 2 / cell_x) + cell_x / 2;
-        int y = Mathf.FloorToInt(mousePos.z / 2 / cell_y) - cell_y / 2 + 1; //카메라 깊이
-        Vector3 offset = new Vector3(x * cellScale.x, 0, y * cellScale.z);
+        cell_idx_x = Mathf.FloorToInt(mousePos.x / 2 / cell_MaxX) + cell_MaxX / 2;
+        cell_idx_y = Mathf.FloorToInt(mousePos.z / 2 / cell_MaxY) - cell_MaxY / 2 + 1; //카메라 깊이
+        
+        Vector3 offset = new Vector3(cell_idx_x * cellScale.x, 0, cell_idx_y * cellScale.z);
         cell_center = top_left + offset;
 
         // 사각형 꼭짓점 설정
@@ -65,5 +69,18 @@ public class MapInfo : MonoBehaviour
     public void FixUnitPos(GameObject obj)
     {
         obj.transform.position = cell_center;
+    }
+
+    public bool PutUnit(GameObject obj)
+    {
+        if(mapMatrix[cell_idx_x, -cell_idx_y] == null)
+        {
+            mapMatrix[cell_idx_x, -cell_idx_y] = obj;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
